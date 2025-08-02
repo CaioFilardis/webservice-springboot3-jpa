@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +28,7 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	@JsonIgnore // ignorar erro de chamada dupla entre os objetos
 	// instanciar coleções
 	// '@OneToMany'pega a referência(atributo) mapeada(User clients) da classe 'Order' para gerar o relacionamento no banco
 	@OneToMany(mappedBy = "clients") 
