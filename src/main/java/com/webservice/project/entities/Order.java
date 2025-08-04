@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.webservice.project.entities.enums.OrderStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,15 +27,21 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant date; // classe instant para utilizar data como texto
 	
+	// gravando no banco de dados o código do enum como inteiro, apenas de forma interna
+	private Integer orderStatus;  // tratando a enumeração internamente como inteiro
+	
+	
+	
 	@ManyToOne // anotação do JPA, são "muitos para um", ID do Order, será a chave estrangeira
 	@JoinColumn(name = "client_id") // anotação JPA, que renomeia a chave estrangeira
 	private User clients; 
 	
 	public Order() {}
 
-	public Order(Long id, Instant date, User clients) {
+	public Order(Long id, Instant date, OrderStatus orderStatus, User clients) {
 		this.id = id;
 		this.date = date;
+		setOrderStatus(orderStatus);
 		this.clients = clients;
 	}
 
@@ -54,6 +61,16 @@ public class Order implements Serializable {
 		this.date = date;
 	}
 
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if (orderStatus != null)
+			this.orderStatus = orderStatus.getCode();
+	}
+	
+	
 	public User getClients() {
 		return clients;
 	}
