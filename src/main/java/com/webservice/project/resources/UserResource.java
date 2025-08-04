@@ -20,7 +20,7 @@ public class UserResource {
 	@Autowired
 	private UserServices service;
 	
-	// endpoint, testa se está funcionando
+	// endpoint, buscar todas as categorias
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {
 		List<User> list = service.findAll();
@@ -30,7 +30,7 @@ public class UserResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	// adicionar um endpoint
+	// endpoint para buscar apenas por id
 	@GetMapping(value = "/{id}") // indica que a requisição vai aceitar um id na URL
 	public ResponseEntity<User> findById(@PathVariable Long id) { // anotação para aceitar o id e passar como parâmentro na URL
 		User obj = service.findById(id);

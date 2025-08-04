@@ -62,12 +62,12 @@ public class Order implements Serializable {
 	}
 
 	public OrderStatus getOrderStatus() {
-		return OrderStatus.valueOf(orderStatus);
+		return OrderStatus.valueOf(orderStatus); // é criado sem ser instanciado e convertido para enum
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
+	public void setOrderStatus(OrderStatus orderStatus) { // passa como enum
 		if (orderStatus != null)
-			this.orderStatus = orderStatus.getCode();
+			this.orderStatus = orderStatus.getCode(); // converte para inteiro
 	}
 	
 	
