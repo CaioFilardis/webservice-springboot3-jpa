@@ -9,31 +9,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.webservice.project.entities.Order;
-import com.webservice.project.services.OrderService;
+import com.webservice.project.entities.Product;
+import com.webservice.project.services.ProductService;
 
 @RestController // diz que é um classe de recursos web, com controlador REST
-@RequestMapping(value = "/orders") // dá o nome para o recurso para utilizar na url
-public class OrderResource {
+@RequestMapping(value = "/products") // dá o nome para o recurso para utilizar na url
+public class ProductResource {
 
 	// dependência para o service
 	@Autowired
-	private OrderService service;
+	private ProductService service;
 	
 	// endpoint, buscar todas as categorias
 	@GetMapping
-	public ResponseEntity<List<Order>> findAll() {
-		List<Order> list = service.findAll();
+	public ResponseEntity<List<Product>> findAll() {
+		List<Product> list = service.findAll();
 		// 'ResponseEntity' encapsula a respota http
 		// 'ok()', dá a resposta de sucesso, 
-		// 'body(Order)', mostrar a resposta no corpo da página
+		// 'body(Product)', mostrar a resposta no corpo da página
 		return ResponseEntity.ok().body(list);
 	}
 	
 	// endpoint para buscar apenas por id
 	@GetMapping(value = "/{id}") // indica que a requisição vai aceitar um id na URL
-	public ResponseEntity<Order> findById(@PathVariable Long id) { // anotação para aceitar o id e passar como parâmentro na URL
-		Order obj = service.findById(id);
+	public ResponseEntity<Product> findById(@PathVariable Long id) { // anotação para aceitar o id e passar como parâmentro na URL
+		Product obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	

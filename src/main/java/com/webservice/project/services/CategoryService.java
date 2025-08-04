@@ -6,25 +6,25 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.webservice.project.entities.User;
-import com.webservice.project.repositories.UserRepository;
+import com.webservice.project.entities.Category;
+import com.webservice.project.repositories.CategoryRepository;
 
 
 @Service // 3. registrar um serviço na camada de serviço
-public class UserServices {
+public class CategoryService {
 
 	// 1. declarar dependência para 
 	@Autowired // fazer o spring realizar a injeção de dependência
-	private UserRepository repository;
+	private CategoryRepository repository;
 	
 	// 2. método para retornar todos os usuários do banco de dados
-	public List<User> findAll() {
+	public List<Category> findAll() {
 		return repository.findAll();
 	}
 	
 	// 4. método para buscar o usuário por id
-	public User findById(Long id) {
-		Optional<User> obj = repository.findById(id); // classe optional
+	public Category findById(Long id) {
+		Optional<Category> obj = repository.findById(id); // classe optional
 		return obj.get(); // retornar o objeto instanciado no Optional
 	}
 }

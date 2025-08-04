@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webservice.project.entities.Category;
-import com.webservice.project.services.CategoryServices;
+import com.webservice.project.services.CategoryService;
 
 @RestController // diz que é um classe de recursos web, com controlador REST
 @RequestMapping(value = "/categories") // dá o nome para o recurso para utilizar na url
@@ -18,7 +18,7 @@ public class CategoryResource {
 
 	// dependência para o service
 	@Autowired
-	private CategoryServices service;
+	private CategoryService service;
 	
 	// endpoint, buscar todas as categorias
 	@GetMapping

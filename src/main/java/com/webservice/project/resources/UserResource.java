@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webservice.project.entities.User;
-import com.webservice.project.services.UserServices;
+import com.webservice.project.services.UserService;
 
 @RestController // diz que é um classe de recursos web, com controlador REST
 @RequestMapping(value = "/users") // dá o nome para o recurso para utilizar na url
@@ -18,7 +18,7 @@ public class UserResource {
 
 	// dependência para o service
 	@Autowired
-	private UserServices service;
+	private UserService service;
 	
 	// endpoint, buscar todas as categorias
 	@GetMapping
