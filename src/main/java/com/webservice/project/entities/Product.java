@@ -9,6 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -25,13 +27,17 @@ public class Product implements Serializable {
 	private String description;
 	private Double price;
 	private String imgUrl;
-	
-	// coleção(interface + classe), representa um conjunto, sem ocorrência da mesma categoria
+
+	// coleção(interface + classe), representa um conjunto, sem ocorrência da mesma
+	// categoria
 	// evitar duplicidade
-	@Transient // impede que o JPA interprete a associação abaixo
+	@ManyToMany // relação muito para muitos
+	//@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	// passar a chave estrangeira(nomeTabela, nomeDaChaveEstrangeura)
 	private Set<Category> categories = new HashSet<>(); // instanciando para não ser nula
-	
-	public Product() {}
+
+	public Product() {
+	}
 
 	// sem a coleção, por já ter sido instanciada
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
