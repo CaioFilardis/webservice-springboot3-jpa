@@ -2,7 +2,9 @@ package com.webservice.project.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.webservice.project.entities.enums.OrderStatus;
@@ -13,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity // diz ao JPA que é uma tabela(entidade) do banco de dados
@@ -27,14 +30,15 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant date; // classe instant para utilizar data como texto
 	
-	// gravando no banco de dados o código do enum como inteiro, apenas de forma interna
 	private Integer orderStatus;  // tratando a enumeração internamente como inteiro
 	
-	
-	
-	@ManyToOne // anotação do JPA, são "muitos para um", ID do Order, será a chave estrangeira
-	@JoinColumn(name = "client_id") // anotação JPA, que renomeia a chave estrangeira
+	@ManyToOne 
+	@JoinColumn(name = "client_id")
 	private User clients; 
+	
+	// associação um-para-muitos
+	@OneToMany(mappedBy = "id.order") // id contém os pedidos
+	private Set<OrderItem> items = new HashSet<>();
 	
 	public Order() {}
 
@@ -84,6 +88,11 @@ public class Order implements Serializable {
 		return Objects.hash(id);
 	}
 
+	// fazer os pedidos conhecer o pedido deles
+	public Set<OrderItem> getItems() {
+		return items;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

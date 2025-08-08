@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.webservice.project.entities.Category;
 import com.webservice.project.entities.Order;
+import com.webservice.project.entities.OrderItem;
 import com.webservice.project.entities.Product;
 import com.webservice.project.entities.User;
 import com.webservice.project.entities.enums.OrderStatus;
 import com.webservice.project.repositories.CategoryRepository;
+import com.webservice.project.repositories.OrderItemRepository;
 import com.webservice.project.repositories.OrderRepository;
 import com.webservice.project.repositories.ProductRepository;
 import com.webservice.project.repositories.UserRepository;
@@ -34,6 +36,11 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private ProductRepository productRepository;
 
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+	
+	
+	
 	@Override
 	public void run(String... args) throws Exception { // instanciar, salvar e popular com objetos o banco
 		
@@ -81,6 +88,15 @@ public class TestConfig implements CommandLineRunner {
 		userRepository.saveAll(Arrays.asList(u1, u2)); // passar todos os objetos em forma de lista
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
 		
+		
+		
+		// --- Depois que salvar os pedidos
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); //obj order, objt product
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 	
 	

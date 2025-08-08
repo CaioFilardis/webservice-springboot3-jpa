@@ -3,6 +3,7 @@ package com.webservice.project.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.webservice.project.entities.pk.OrderItemPk;
 
 import jakarta.persistence.EmbeddedId;
@@ -17,8 +18,11 @@ public class OrderItem implements Serializable{
 	
 	
 	// atributo identificador, correspondente a chave primária
+	// sempre instanciar uma classe auxiliar de chave primária composta
 	@EmbeddedId
-	private OrderItemPk id;
+	private OrderItemPk id = new OrderItemPk();
+	
+	
 	private Integer quantity;
 	private Double price;
 	
@@ -36,7 +40,8 @@ public class OrderItem implements Serializable{
 
 	// gerando os métodos dos getters e setters do produtct e order de forma manual
 	// fazendo isso atravé do identificador 'id' do tipo "OrderItemPk", classe auxiliar
-	public Order getOrder() {
+	@JsonIgnore
+	public Order getOrder() { // chama o pedido
 		return id.getOrder();
 	}
 	
